@@ -8,15 +8,14 @@ from mitosheet.streamlit.v1.spreadsheet import _get_mito_backend
 st.set_page_config(layout="wide")
 
 @st.cache_data
-def get_tesla_data():
-    df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/tesla-stock-price.csv')
+def data():
+    df = pd.read_csv(r'./data/test_data.csv')
     df = df.drop(0)
-    df['volume'] = df['volume'].astype(float)
     return df
 
-tesla_data = get_tesla_data()
+user_data = data()
 
-new_dfs, code = spreadsheet(tesla_data)
+new_dfs, code = spreadsheet(user_data)
 code = code if code else "# Edit the spreadsheet above to generate code"
 st.code(code)
 
